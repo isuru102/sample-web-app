@@ -8,17 +8,17 @@ pipeline {
     }
 
     stages {
-        stage("Build and push docker non-release"){
+        stage("Read version"){
             steps {
                 script {
                     def version = sh(returnStdout: true, script: "npm pkg get version | sed 's/\"//g'")
-                    // echo "Version is ${version}"
+                    echo "Version is ${version}"
                 }
             }
         }
-        stage("Prepare") {
+        stage("Build image") {
             steps {
-                echo "Version is ${version}"
+                sh "docker build -t sample-web-image:${version} -f Dockerfile-dev ."
             }
         } 
     }
