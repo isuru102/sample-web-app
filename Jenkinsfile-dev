@@ -1,0 +1,15 @@
+pipeline {
+    // agent { node { label 'swarm-ci' } }
+
+    environment {
+        VERSION = "1.0.0"
+    }
+
+    stages {
+        stage("Prepare") {
+            steps {
+                sh "ls"
+            }
+        } 
+    }
+}
