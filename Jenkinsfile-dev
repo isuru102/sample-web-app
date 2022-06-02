@@ -12,7 +12,7 @@ pipeline {
         stage("Read version"){
             steps {
                 script {
-                    VERSION = sh(returnStdout: true, script: "npm pkg get version | sed 's/\"//g'")
+                    VERSION = sh(returnStdout: true, script: "npm pkg get version")
                     echo "Version is ${VERSION}"
                 }
             }
