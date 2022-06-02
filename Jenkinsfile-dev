@@ -12,10 +12,10 @@ pipeline {
             steps {
                 script {
                     // def version = sh(returnStdout: true, script: "npm version")
-                    def version = sh(returnStdout: true, script: "npm pkg get version")
+                    def version = sh(returnStdout: true, script: "npm pkg get version | sed 's/\"//g'")
                     echo "Version is ${version}"
-                    def versionProps = readJSON text: version
-                    echo "Project version is ${versionProps['project-name']}"
+                    // def versionProps = readJSON text: version
+                    // echo "Project version is ${versionProps['project-name']}"
                 }
             }
         }
