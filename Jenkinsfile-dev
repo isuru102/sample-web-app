@@ -12,14 +12,14 @@ pipeline {
         stage("Read version"){
             steps {
                 script {
-                    VERSION = sh(returnStdout: true, script: "npm pkg get version")
+                    VERSION = sh(returnStdout: true, script: "npm pkg get version | sed 's/\"//g'")
                     echo "Version is ${VERSION}"
                 }
             }
         }
         stage("Build image") {
             steps {
-                sh "docker build -t sample-web-image:${VERSION} -f Dockerfile-dev ."
+                sh "docker build -t sample-web-image:1.1.1 -f Dockerfile-dev ."
                 sh "docker images"
             }
         } 
