@@ -12,14 +12,16 @@ pipeline {
                 script {
                     def version = sh(returnStdout: true, script: "npm pkg get version | sed 's/\"//g'")
                     echo "Version is ${version}"
+                    sh "docker build -t sample-web-image:${version} -f Dockerfile-dev ."
+                    sh "docker images"
                 }
             }
         }
-        stage("Build image") {
-            steps {
-                sh "docker build -t sample-web-image:${version} -f Dockerfile-dev ."
-                sh "docker images"
-            }
-        } 
+        // stage("Build image") {
+        //     steps {
+        //         sh "docker build -t sample-web-image:${version} -f Dockerfile-dev ."
+        //         sh "docker images"
+        //     }
+        // } 
     }
 }
