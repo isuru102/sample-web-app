@@ -6,12 +6,14 @@ pipeline {
     }
 
     stages {
-        steps {
-            script {
-                def version = sh(returnStdout: true, script: "npm version")
-                echo "Version is ${version}"
-                def versionProps = readJSON text: version
-                echo "Project version is ${versionProps['project-name']}"
+        stage("Build and push docker non-release"){
+            steps {
+                script {
+                    def version = sh(returnStdout: true, script: "npm version")
+                    echo "Version is ${version}"
+                    def versionProps = readJSON text: version
+                    echo "Project version is ${versionProps['project-name']}"
+                }
             }
         }
         // stage("Prepare") {
