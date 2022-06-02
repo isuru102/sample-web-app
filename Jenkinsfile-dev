@@ -13,6 +13,7 @@ pipeline {
                 def versionProps = readJSON text: version
                 echo "Project version is ${versionProps['project-name']}"
             }
+        }
         // stage("Prepare") {
         //     steps {
         //         sh "ls"
