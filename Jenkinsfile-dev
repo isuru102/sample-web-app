@@ -1,5 +1,5 @@
 pipeline {
-    // agent { node { label 'swarm-ci' } }
+    agent { node { label 'swarm-ci' } }
 
     environment {
         VERSION = "1.0.0"
