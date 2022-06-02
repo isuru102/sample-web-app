@@ -19,7 +19,7 @@ pipeline {
         }
         stage("Build image") {
             steps {
-                sh "docker build -t sample-web-image:1.1.1 -f Dockerfile-dev ."
+                sh "docker build -t sample-web-image:${VERSION} -f Dockerfile-dev ."
                 sh "docker images"
             }
         } 
