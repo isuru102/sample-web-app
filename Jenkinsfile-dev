@@ -6,10 +6,17 @@ pipeline {
     }
 
     stages {
-        stage("Prepare") {
-            steps {
-                sh "ls"
+        steps {
+            script {
+                def version = sh(returnStdout: true, script: "npm version")
+                echo "Version is ${version}"
+                def versionProps = readJSON text: version
+                echo "Project version is ${versionProps['project-name']}"
             }
-        } 
+        // stage("Prepare") {
+        //     steps {
+        //         sh "ls"
+        //     }
+        // } 
     }
 }
