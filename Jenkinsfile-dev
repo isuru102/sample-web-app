@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     tools {
-        nodejs "node-18.3.0"
-        // docker "docker"
+        // nodejs "node-18.3.0"
+        docker "docker"
     } 
 
     environment {
