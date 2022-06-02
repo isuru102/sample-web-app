@@ -1,3 +1,5 @@
+def VERSION
+
 pipeline {
     agent any
     
@@ -10,18 +12,16 @@ pipeline {
         stage("Read version"){
             steps {
                 script {
-                    def version = sh(returnStdout: true, script: "npm pkg get version | sed 's/\"//g'")
+                    VERSION = sh(returnStdout: true, script: "npm pkg get version | sed 's/\"//g'")
                     echo "Version is ${version}"
-                    sh "docker build -t sample-web-image:${version} -f Dockerfile-dev ."
-                    sh "docker images"
                 }
             }
         }
-        // stage("Build image") {
-        //     steps {
-        //         sh "docker build -t sample-web-image:${version} -f Dockerfile-dev ."
-        //         sh "docker images"
-        //     }
-        // } 
+        stage("Build image") {
+            steps {
+                sh "docker build -t sample-web-image:${VERSION} -f Dockerfile-dev ."
+                sh "docker images"
+            }
+        } 
     }
 }
