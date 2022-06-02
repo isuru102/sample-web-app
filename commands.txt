@@ -1,0 +1,3 @@
+To build image - docker build -t <image-name>:<tag/version> -f Dockerfile-dev .
+Remove image - docker image rm <image id>
+Tag image - docker tag <image-name> <new-image-name>:<version>

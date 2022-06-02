@@ -1,0 +1,13 @@
+
+FROM node:18
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+RUN npm install
+# RUN npm pkg get version | sed 's/"//g'
+# RUN VERSION="$(npm pkg get version)"
+# RUN echo $VERSION
+ENV VERSION="0.1.0"
+EXPOSE 3000
+CMD ["npm", "start"]
