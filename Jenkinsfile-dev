@@ -11,18 +11,15 @@ pipeline {
         stage("Build and push docker non-release"){
             steps {
                 script {
-                    // def version = sh(returnStdout: true, script: "npm version")
                     def version = sh(returnStdout: true, script: "npm pkg get version | sed 's/\"//g'")
-                    echo "Version is ${version}"
-                    // def versionProps = readJSON text: version
-                    // echo "Project version is ${versionProps['project-name']}"
+                    // echo "Version is ${version}"
                 }
             }
         }
-        // stage("Prepare") {
-        //     steps {
-        //         sh "ls"
-        //     }
-        // } 
+        stage("Prepare") {
+            steps {
+                echo "Version is ${version}"
+            }
+        } 
     }
 }
