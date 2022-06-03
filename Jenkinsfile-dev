@@ -5,24 +5,32 @@ pipeline {
     
     tools {
         nodejs "node-18.3.0"
-        // docker "docker"
     }
+
+    environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockehub')
+	}
 
     stages {
         stage("Read version"){
             steps {
                 script {
                     VERSION = sh(returnStdout: true, script: "npm pkg get version | sed 's/\"//g'")
-                    // echo "Version is ${VERSION}"
+                    echo "Version is ${VERSION}"
                 }
             }
         }
         stage("Build image") {
             steps {
-                echo "Version is ${VERSION}"
                 sh "docker build -f Dockerfile-dev . -t sample-web-image:${VERSION}"
                 sh "docker images"
             }
-        } 
+        }
+        stage("Upload image") {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS --password-stdin'
+                sh 'docker push sample-web-image:${VERSION}'
+            }
+        }
     }
 }
