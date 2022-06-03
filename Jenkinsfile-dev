@@ -22,14 +22,15 @@ pipeline {
         }
         stage("Build image") {
             steps {
-                sh "docker build -f Dockerfile-dev . -t sample-web-image:${VERSION}"
+                sh "docker build -f Dockerfile-dev . -t sample-web-image"
+                sh "docker tag sample-web-image isurusandamal/sample-web-image:${VERSION}"
                 sh "docker images"
             }
         }
         stage("Upload image") {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh "docker push sample-web-image:${VERSION}"
+                sh "docker push isurusandamal/sample-web-image:${VERSION}"
             }
         }
     }
