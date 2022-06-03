@@ -20,7 +20,7 @@ pipeline {
         stage("Build image") {
             steps {
                 echo "Version is ${VERSION}"
-                sh "docker build -t sample-web-image:${VERSION} -f Dockerfile-dev ."
+                sh "docker build -f Dockerfile-dev . -t sample-web-image:${VERSION}"
                 sh "docker images"
             }
         } 
